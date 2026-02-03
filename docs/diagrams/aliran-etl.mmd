@@ -1,0 +1,14 @@
+%% Aliran ETL — Rajah 2
+flowchart TD
+  U[Pengguna: Muat Naik Fail] --> S[Server: Terima & Validate MIME/size]
+  S --> AV[Imbas Antivirus]
+  AV --> Store[Simpan Raw File di storage/uploads]
+  Store --> Enq[Enqueue Job]
+  Enq --> W[Worker: Parse & Transform]
+  W --> Transform[Transform & Map Schema]
+  Transform --> Load[Muat naik ke DB]
+  Load --> Aggregate["Precompute Aggregates"]
+  Aggregate --> Cache["Update Cache - Redis"]
+  Cache --> Dashboard["Dashboard (BI)"]
+  W -->|error| DL["Dead Letter Queue - Audit Log"]
+  DL --> Admin[Admin: Semak Ralat]

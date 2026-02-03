@@ -1,0 +1,24 @@
+%% Arkitektur Tinggi — Rajah 1
+graph LR
+  Client["Pengguna<br/>(Web Browser)"]
+  Upload["Upload Service<br/>storage/uploads - secure"]
+  AV["Antivirus Scan"]
+  Parser["Parser Excel<br/>Laravel-Excel, exceljs, pandas"]
+  Queue["Queue - Redis & Workers"]
+  ETL["ETL Worker"]
+  DB[("Database<br/>Postgres / MySQL")]
+  Cache[("Redis Cache")]
+  BI["Dashboard / BI Tool<br/>Metabase, Grafana"]
+  Monitoring["Monitoring / Sentry"]
+
+  Client -->|POST /upload| Upload
+  Upload --> AV --> Parser
+  Parser -->|enqueue job| Queue
+  Queue --> ETL --> DB
+  ETL --> Cache
+  DB --> BI
+  Cache --> BI
+  ETL --> Monitoring
+  Upload --> Monitoring
+  BI -->|query| DB
+  BI -->|serve| Client

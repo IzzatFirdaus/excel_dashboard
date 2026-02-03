@@ -1,0 +1,24 @@
+%% Deployment Diagram — Rajah 5
+graph TD
+  subgraph Windows_Laragon["Windows - Laragon (native)"]
+    WebServer["Web App - Laragon"]
+    DB_L["MySQL - Laragon XAMPP"]
+    TaskSch["Windows Task Scheduler"]
+  end
+
+  subgraph Docker["Docker - optional"]
+    WebContainer["Web App Container"]
+    DB_Container["Postgres Container"]
+    Redis["Redis Container"]
+    MinIO["MinIO Container"]
+    Worker["Worker Container"]
+  end
+
+  WebServer --> DB_L
+  WebServer --> TaskSch
+  WebContainer --> DB_Container
+  WebContainer --> Redis
+  WebContainer --> MinIO
+  WebContainer --> Worker
+  Worker --> Redis
+  Worker --> DB_Container

@@ -1,0 +1,23 @@
+%% Urutan Muat Naik → Paparan — Rajah 4
+sequenceDiagram
+  participant User as Pengguna
+  participant Browser as Pelayar
+  participant Server as Pelayan
+  participant Queue as Giliran
+  participant Worker as Pekerja
+  participant DB as PangkalanData
+  participant Cache as Cache
+  participant Dashboard as PapanPemuka
+
+  Pengguna->>Pelayar: Pilih & hantar fail
+  Pelayar->>Pelayan: POST /upload
+  Pelayan->>Pelayan: Validate, IMB scan
+  Pelayan->>Pelayan: Store raw file
+  Pelayan->>Giliran: Enqueue job
+  Giliran->>Pekerja: Job pulled
+  Pekerja->>Pekerja: Parse & transform
+  Pekerja->>PangkalanData: Insert/Update
+  Pekerja->>Cache: Update aggregates
+  Pelayan->>PapanPemuka: Notify / Invalidate cache
+  PapanPemuka->>PangkalanData: Query data
+  PapanPemuka->>Pengguna: Render charts

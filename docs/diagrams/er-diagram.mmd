@@ -1,0 +1,29 @@
+%% ER Diagram — Rajah 3
+erDiagram
+  FILES {
+    int id PK "ID fail"
+    string filename "Nama fail"
+    datetime uploaded_at "Waktu muat naik"
+    string uploaded_by "Pengguna"
+  }
+  ROWS {
+    int id PK
+    int file_id FK
+    int row_number
+    json data
+  }
+  DATASETS {
+    int id PK
+    string name
+    datetime created_at
+  }
+  METRICS {
+    int id PK
+    int dataset_id FK
+    string key
+    float value
+  }
+
+  FILES ||--o{ ROWS : contains
+  DATASETS ||--o{ METRICS : contains
+  FILES }o--|| DATASETS : "belongs to"

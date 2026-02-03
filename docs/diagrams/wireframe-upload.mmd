@@ -1,0 +1,26 @@
+%% Wireframe: Aliran Muat Naik & Semakan — Rajah 7
+flowchart TB
+  subgraph UploadPage["Halaman Muat Naik"]
+    A1["Butang Pilih Fail"]
+    A2["Muat Naik"]
+    A3["Status & Progress Bar"]
+  end
+  subgraph MappingPage["Halaman Pemetaan"]
+    B1["Tunjuk Header - Dropdown untuk mapping"]
+    B2["Tanda Medan Wajib"]
+    B3["Simpan Pemetaan atau Langkau"]
+  end
+  subgraph ValidationPage["Halaman Semakan"]
+    C1["Senarai Isu - Errors / Warnings"]
+    C2["Butang Perbetulkan / Abaikan"]
+    C3["Butang Sahkan dan Proses"]
+  end
+  subgraph Dashboard["Halaman Papan Pemuka"]
+    D1["Ringkasan KPI"]
+    D2["Carta & Jadual"]
+    D3["Butang Refresh / Muat turun CSV"]
+  end
+
+  A2 --> B1
+  B3 --> C1
+  C3 --> Dashboard

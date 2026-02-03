@@ -1,0 +1,12 @@
+%% Security Flow — Rajah 6
+flowchart TD
+  Upload[Fail Diterima]
+  Upload --> AV[Imbas Antivirus]
+  AV -->|bersih| Sanitize[Sanitasi: Escape formula awalan]
+  AV -->|hasad| Quarantine["Karentas - Notifikasi Admin"]
+  Sanitize --> RBAC["Periksa Kebenaran - RBAC"]
+  RBAC --> Enqueue["Enqueue Job"]
+  Enqueue --> Worker["Worker - Proses & Log Audit"]
+  Worker --> Audit["Log Audit disimpan"]
+  Quarantine --> Admin["Admin: Semak & Tindakan"]
+  Sanitize -->|lebih| DL[Dead Letter Queue pada ralat]
