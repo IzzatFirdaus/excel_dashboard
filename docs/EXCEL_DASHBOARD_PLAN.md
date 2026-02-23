@@ -3,7 +3,7 @@
 ## SISTEM INTEGRASI DATA DAN PAPAN PEMUKA PRESTASI NASIONAL (National Integrated Performance Monitor)
 
 | Butiran Dokumen | Keterangan |
-|---|---|
+| --- | --- |
 | **Tajuk Projek** | Sistem Integrasi Data dan Papan Pemuka Prestasi Nasional |
 | **Versi Dokumen** | 2.0 |
 | **Status** | Cadangan Teknikal Rasmi (Untuk Kelulusan Jawatankuasa Pemandu) |
@@ -40,7 +40,7 @@ Sistem ini dijangka meningkatkan kecekapan pelaporan prestasi sebanyak sekurang-
 Objektif strategik projek ini adalah seperti berikut:
 
 | No. | Objektif | Petunjuk Pencapaian (Outcome Indicator) |
-|---|---|---|
+| --- | --- | --- |
 | **OBJ-01** | Mewujudkan repositori data terpusat (Centralized Data Repository) yang menyatukan semua rekod prestasi daripada pelbagai sumber hamparan elektronik ke dalam satu pangkalan data relasi yang terurus dan terkawal. | Satu pangkalan data tunggal menggantikan semua fail Excel silo. |
 | **OBJ-02** | Menjamin integriti dan ketepatan data melalui automasi pengesahan berlapis (Multi-Layer Validation), sanitasi input keselamatan (Security Sanitization), dan mekanisme kelulusan data (Approval Workflow) sebelum data diiktiraf sebagai data produksi. | Kadar ralat data kurang daripada 2% selepas pengesahan automatik. |
 | **OBJ-03** | Menyokong pemantauan prestasi masa nyata (Real-Time Performance Monitoring) melalui papan pemuka analitik (Analytics Dashboard) yang memaparkan status KPI, pencapaian mengikut jabatan, dan analisis perbandingan (Benchmarking) secara dinamik. | Papan pemuka boleh diakses dalam masa kurang daripada 3 saat. |
@@ -64,7 +64,7 @@ Skop pembangunan merangkumi sembilan (9) modul teras yang direka bentuk secara m
 Sistem melaksanakan model RBAC bertingkat dengan peranan berikut:
 
 | Peranan (Role) | Hak Akses Utama |
-|---|---|
+| --- | --- |
 | **Pentadbir Sistem** (Super Admin) | Pengurusan penuh: pengguna, peranan, konfigurasi sistem, dan jejak audit. |
 | **Pentadbir Jabatan** (Department Admin) | Pengurusan pengguna dan data dalam skop jabatan ditugaskan. |
 | **Pengurus KPI** (KPI Manager) | Pendaftaran KPI, penetapan sasaran, kelulusan data, dan semakan laporan. |
@@ -101,7 +101,7 @@ Setiap entri log mengandungi: identiti pengguna, cap masa (Timestamp), jenis tin
 Sistem menyokong empat (4) peringkat hierarki strategik:
 
 | Peringkat | Keterangan | Contoh |
-|---|---|---|
+| --- | --- | --- |
 | **Teras Strategik** (Strategic Core) | Matlamat induk organisasi atau negara. | "Memantapkan Modal Insan" |
 | **Strategi** (Strategy) | Hala tuju pelaksanaan bagi setiap teras. | "Meningkatkan kualiti pendidikan tinggi" |
 | **Inisiatif** (Initiative) | Program atau projek khusus bagi melaksanakan strategi. | "Program Pengantarabangsaan Universiti Awam" |
@@ -127,13 +127,13 @@ Sistem menyokong empat (4) peringkat hierarki strategik:
 
 #### 3.3.1 Kaedah Kemasukan Data
 
-**A. Borang Dinamik (Dynamic Forms)**
+##### A. Borang Dinamik (Dynamic Forms)
 
 * Borang kemasukan data yang dijana secara automatik berdasarkan definisi KPI yang didaftarkan.
 * Jenis medan (Field Types) yang disokong: teks, nombor, tarikh, peratusan, senarai pilihan (Dropdown), dan lampiran fail.
 * Pengesahan medan masa nyata (Real-Time Field Validation) untuk memastikan konsistensi input.
 
-**B. Muat Naik Pukal melalui Excel (Bulk Upload via Excel)**
+##### B. Muat Naik Pukal melalui Excel (Bulk Upload via Excel)
 
 * Pengguna memuat naik fail Excel (.xlsx / .xls) melalui antara muka muat naik yang terkawal.
 * Sistem menyediakan templat Excel piawai (Standardized Excel Template) yang boleh dimuat turun untuk setiap jenis KPI.
@@ -144,20 +144,20 @@ Sistem menyokong empat (4) peringkat hierarki strategik:
 
 Proses kemasukan data melalui lima (5) peringkat kawalan yang ketat:
 
-**Peringkat 1 — Penerimaan dan Simpanan Sementara (Ingestion & Staging)**
+##### Peringkat 1 — Penerimaan dan Simpanan Sementara (Ingestion & Staging)
 
 * Fail Excel yang dimuat naik disimpan dalam storan sementara (Temporary Storage) dengan pencatatan metadata: nama fail asal, saiz fail, identiti pengguna, dan cap masa muat naik.
 * Data diekstrak baris demi baris dan dimasukkan ke dalam **Jadual Penampan** (Staging Table) dengan status awal `DRAFT`.
 * Fail asal dikekalkan sebagai rujukan audit.
 
-**Peringkat 2 — Pengesahan Struktur (Structural Validation)**
+##### Peringkat 2 — Pengesahan Struktur (Structural Validation)
 
 * Pengesahan kewujudan pengepala lajur (Column Headers) yang diperlukan berdasarkan templat piawai.
 * Pengesahan konsistensi bilangan lajur bagi setiap baris data.
 * Pengesanan baris kosong, baris duplikasi, atau baris tidak lengkap.
 * Rekod yang gagal pengesahan struktur ditandakan dengan status `STRUCTURE_ERROR`.
 
-**Peringkat 3 — Pengesahan Format dan Logik (Format & Logic Validation)**
+##### Peringkat 3 — Pengesahan Format dan Logik (Format & Logic Validation)
 
 * Pengesahan jenis data: nombor, tarikh (format ISO 8601), peratusan, dan teks.
 * Pengesahan julat nilai (Range Validation): contohnya peratusan mestilah antara 0 dan 100.
@@ -165,14 +165,14 @@ Proses kemasukan data melalui lima (5) peringkat kawalan yang ketat:
 * Sanitasi keselamatan (Security Sanitization): pengesanan dan penyingkiran formula berbahaya (Formula Injection Prevention) seperti sel yang bermula dengan aksara `=`, `+`, `-`, `@`, `\t`, atau `\r`.
 * Rekod yang gagal ditandakan dengan status `VALIDATION_ERROR` berserta mesej ralat yang spesifik.
 
-**Peringkat 4 — Semakan dan Kelulusan Pengguna (User Review & Approval)**
+##### Peringkat 4 — Semakan dan Kelulusan Pengguna (User Review & Approval)
 
 * Data yang lulus pengesahan automatik ditandakan dengan status `PENDING_APPROVAL`.
 * Pengurus KPI menyemak ringkasan data melalui antara muka semakan (Review Interface) yang memaparkan: jumlah rekod, rekod sah, rekod ralat, dan pratonton data.
 * Pengurus KPI boleh meluluskan (Approve), menolak (Reject), atau meminta pembetulan (Request Correction) bagi setiap kumpulan data (Batch).
 * Keputusan kelulusan direkod dalam jejak audit.
 
-**Peringkat 5 — Pemindahan ke Jadual Produksi (Production Promotion)**
+##### Peringkat 5 — Pemindahan ke Jadual Produksi (Production Promotion)
 
 * Rekod yang diluluskan dipindahkan daripada Jadual Penampan ke **Jadual Produksi** (Production Table) dengan status `APPROVED`.
 * Rekod dalam Jadual Penampan dikemaskini kepada status `PROMOTED` dan dikekalkan selama tempoh pengekalan data (Data Retention Period) yang ditetapkan.
@@ -195,7 +195,7 @@ Proses kemasukan data melalui lima (5) peringkat kawalan yang ketat:
 Papan pemuka dibina menggunakan komponen *widget* interaktif FilamentPHP:
 
 | Komponen | Fungsi |
-|---|---|
+| --- | --- |
 | **Kad Statistik** (Stat Card) | Paparan ringkas angka prestasi utama: jumlah KPI, peratusan pencapaian, bilangan jabatan aktif. |
 | **Carta Bar dan Carta Garis** (Bar & Line Charts) | Perbandingan prestasi mengikut tempoh (suku tahun, tahunan) dan mengikut jabatan. |
 | **Carta Pai** (Pie Chart) | Taburan status KPI: Tercapai (On Track), Berisiko (At Risk), Tidak Tercapai (Off Track). |
@@ -229,7 +229,7 @@ Papan pemuka dibina menggunakan komponen *widget* interaktif FilamentPHP:
 * **Kaedah:** Pengiraan skor risiko komposit bagi setiap KPI berdasarkan empat (4) faktor:
 
 | Faktor Risiko | Pemberat | Keterangan |
-|---|---|---|
+| --- | --- | --- |
 | Sisihan daripada Sasaran (Deviation from Target) | 40% | Perbezaan antara pencapaian semasa dan sasaran yang ditetapkan. |
 | Trend Prestasi (Performance Trend) | 25% | Arah aliran prestasi tiga suku tahun terakhir: menaik, mendatar, atau menurun. |
 | Volatiliti Data (Data Volatility) | 20% | Kestabilan data — sisihan piawai (Standard Deviation) nilai KPI merentas tempoh pelaporan. |
@@ -273,7 +273,7 @@ Setiap transaksi berikut direkod secara automatik tanpa pengecualian:
 Setiap entri jejak audit mengandungi maklumat berikut:
 
 | Atribut | Keterangan |
-|---|---|
+| --- | --- |
 | ID Audit (Audit ID) | Pengecam unik bagi setiap entri audit. |
 | Cap Masa (Timestamp) | Tarikh dan masa tindakan dilaksanakan (format ISO 8601 dengan zon masa). |
 | Identiti Pengguna (User Identity) | Nama pengguna, ID pengguna, dan peranan semasa. |
@@ -299,7 +299,7 @@ Setiap entri jejak audit mengandungi maklumat berikut:
 #### 3.7.1 Saluran Pemberitahuan
 
 | Saluran | Keterangan |
-|---|---|
+| --- | --- |
 | **Emel** (Email Notification) | Pemberitahuan dihantar ke alamat emel berdaftar pengguna melalui protokol SMTP yang disulitkan (TLS/SSL). |
 | **Pemberitahuan Dalam Aplikasi** (In-App Push Notification) | Pemberitahuan masa nyata yang dipaparkan dalam antara muka sistem semasa pengguna aktif. |
 
@@ -333,7 +333,7 @@ Setiap entri jejak audit mengandungi maklumat berikut:
 #### 3.8.2 Fungsi API Utama
 
 | Endpoint | Kaedah | Fungsi |
-|---|---|---|
+| --- | --- | --- |
 | `/api/v1/kpi` | GET | Mendapatkan senarai KPI mengikut penapis (jabatan, tahun, status). |
 | `/api/v1/kpi/{id}/data` | GET | Mendapatkan data prestasi bagi KPI tertentu. |
 | `/api/v1/upload` | POST | Muat naik fail Excel untuk pemprosesan data. |
@@ -357,7 +357,7 @@ Setiap entri jejak audit mengandungi maklumat berikut:
 Sistem menyediakan ruang storan digital yang terkawal untuk dokumen berikut:
 
 | Kategori | Dokumen |
-|---|---|
+| --- | --- |
 | **Dokumen Pembangunan** | Spesifikasi Keperluan Perisian (SRS), Spesifikasi Rekabentuk Perisian (SDS). |
 | **Dokumen Ujian** | Kes Ujian Penerimaan Pengguna (UAT), Ujian Penerimaan Prestasi (PAT), Laporan Ujian. |
 | **Dokumen Operasi** | Manual Pengguna (User Manual), Manual Pentadbir (Administrator Manual), Prosedur Operasi Standard (SOP). |
@@ -382,7 +382,7 @@ Sistem dibina berdasarkan **Seni Bina Tiga Lapisan** (Three-Tier Architecture) d
 ### 4.2 Tindanan Teknologi (Technology Stack)
 
 | Lapisan | Teknologi | Justifikasi |
-|---|---|---|
+| --- | --- | --- |
 | **Lapisan Persembahan** (Presentation Layer) | FilamentPHP 3.x | Rangka kerja panel pentadbiran yang matang, menyediakan komponen papan pemuka, borang, jadual, dan widget secara sedia ada. Mengurangkan masa pembangunan antara muka secara signifikan. |
 | **Lapisan Aplikasi** (Application Layer) | Laravel 12 | Rangka kerja PHP yang paling meluas digunakan, menyediakan ekosistem lengkap: ORM (Eloquent), baris gilir kerja (Queue), penghantar emel (Mail), dan pengesahan (Validation). |
 | **Lapisan Data** (Data Layer) | MySQL 8.x | Pangkalan data relasi yang terbukti stabil, menyokong transaksi ACID, dan sesuai untuk data berstruktur yang memerlukan integriti rujukan. |
@@ -420,7 +420,7 @@ Sistem dibina berdasarkan **Seni Bina Tiga Lapisan** (Three-Tier Architecture) d
 
 Aliran data keseluruhan sistem digambarkan secara ringkas seperti berikut:
 
-```
+```text
 Muat Naik Excel ──▶ Jadual Penampan (Status: DRAFT)
        │
        ▼
@@ -461,7 +461,7 @@ Pembangunan sistem dilaksanakan menggunakan **Metodologi Agile — Kitaran Hayat
 ### 5.2 Fasa Pembangunan
 
 | Fasa | Aktiviti Utama | Serahan (Deliverable) |
-|---|---|---|
+| --- | --- | --- |
 | **Fasa 1: Analisis Keperluan** | Pengumpulan keperluan fungsian dan bukan fungsian, analisis pihak berkepentingan (Stakeholder Analysis), dan definisi skop akhir. | Dokumen SRS (Versi Diluluskan) |
 | **Fasa 2: Rekabentuk Sistem** | Rekabentuk seni bina teknikal, skema pangkalan data, aliran data, antara muka pengguna (Wireframes), dan rekabentuk API. | Dokumen SDS, Gambarajah ER, Wireframes |
 | **Fasa 3: Pembangunan Iteratif** | Pembangunan modul secara berperingkat mengikut keutamaan, ujian unit (Unit Testing), dan integrasi berterusan (Continuous Integration). | Prototaip berfungsi bagi setiap sprint |
@@ -474,7 +474,7 @@ Pembangunan sistem dilaksanakan menggunakan **Metodologi Agile — Kitaran Hayat
 Serahan dokumentasi yang wajib disediakan sepanjang pembangunan projek:
 
 | No. | Dokumen | Keterangan |
-|---|---|---|
+| --- | --- | --- |
 | 1 | **SRS** (Software Requirement Specification) | Spesifikasi keperluan perisian yang lengkap dan diluluskan. |
 | 2 | **SDS** (Software Design Specification) | Spesifikasi rekabentuk teknikal termasuk seni bina, skema data, dan API. |
 | 3 | **UAT** (User Acceptance Test) | Kes ujian dan laporan penerimaan pengguna. |
